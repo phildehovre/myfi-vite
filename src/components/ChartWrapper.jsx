@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Section from '../components/Section'
-import Chart from '../components/Chart'
+import Chart from './Chart'
 import { useTimeSeries } from '../utils/db'
-import SearchBar from '../components/SearchBar'
-import ChartWrapper from '../components/ChartWrapper'
 
-function DiscoverPage() {
+function ChartWrapper({ selectedTicker }) {
 
-    const [selectedTicker, setSelectedTicker] = useState(null)
     const [sampleSize, setSampleSize] = useState(20)
     const [sample, setSample] = useState(null)
     const [chartData, setChartData] = useState(null)
@@ -43,10 +39,6 @@ function DiscoverPage() {
     }
     const { isLoading, data, errors } = useTimeSeries(selectedTicker, onSuccess, onError)
 
-    const handleTickerChange = (t) => {
-        setSelectedTicker(t)
-    }
-
     const handleSampleSizeChange = (val) => {
         if (val > 0 && sampleSize <= 5000) {
             setSampleSize(prev => prev + 5)
@@ -73,18 +65,13 @@ function DiscoverPage() {
         )
     }
 
-    return (
-        <Section>
-            <SearchBar handleTickerChange={handleTickerChange} />
-            {/* {renderChart()} */}
-            {
-                data?.data.code === 400 &&
-                <div>{data.data.message}</div>
-            }
 
-            <ChartWrapper selectedTicker={selectedTicker} />
-        </Section>
+    return (
+        <div>
+            {renderChart()}
+
+        </div>
     )
 }
 
-export default DiscoverPage
+export default ChartWrapper
