@@ -16,9 +16,7 @@ import { useTimeSeries } from '../utils/db'
 
 function SearchBar({ height, handleTickerChange }) {
 
-
     const { handleSubmit, register, reset } = useForm()
-
 
     const [term, setTerm] = useState('')
     const [autoComplete, setAutoComplete] = useState([])
@@ -33,8 +31,6 @@ function SearchBar({ height, handleTickerChange }) {
             }).catch(err => alert(err))
         }
     }, [term]);
-
-
 
 
     const onSubmit = (data) => {

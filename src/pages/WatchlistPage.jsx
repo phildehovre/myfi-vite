@@ -3,6 +3,8 @@ import Watchlist from '../components/watchlist'
 import { auth } from '../config/firebase'
 import { useNavigate } from 'react-router-dom'
 import ChartWrapper from '../components/ChartWrapper'
+import Section from '../components/Section'
+import PageContainer from '../components/PageContainer'
 
 function WatchlistPage() {
 
@@ -20,10 +22,11 @@ function WatchlistPage() {
         }
     }, [])
 
-    return (<>
-        <Watchlist handleTickerItemClick={handleTickerItemClick} />
-        <ChartWrapper selectedTicker={selectedTicker} />
-    </>
+    return (
+        <PageContainer className='watchlist_page-ctn'>
+            <Watchlist handleTickerItemClick={handleTickerItemClick} />
+            <ChartWrapper selectedTicker={selectedTicker} />
+        </PageContainer>
     )
 }
 

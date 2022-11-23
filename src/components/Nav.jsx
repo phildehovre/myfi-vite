@@ -36,16 +36,23 @@ function Nav() {
 
     return (
         <div className='navbar-ctn'>
-            <Link className='nav-btn' to='/'>Home</Link>
-            <Link className='nav-btn' to='/login'>Login</Link>
-            {
-                !auth.currentUser
-                    ? <Link to='/signup'>Sign up</Link>
-                    : <div onClick={() => handleSignOut()}>Log out</div>
-            }
-            <Link className='nav-btn' to='/discover'>Discover</Link>
-            <Link className='nav-btn' to='/watchlist'>Watchlist</Link>
-            <div className='nav-btn'>{auth.currentUser?.email}</div>
+            <Link className='nav-btn logo' to='/'>MyFi</Link>
+            <span></span>
+            <div className='buttons-ctn'>
+                <Link className='nav-btn' to='/'>Home</Link>
+                <Link className='nav-btn' to='/discover'>Discover</Link>
+                {auth.currentUser &&
+                    <Link className='nav-btn' to='/watchlist'>Watchlist</Link>
+                }
+                <Link className='nav-btn' to='/login'>Login</Link>
+                {
+                    !auth.currentUser
+                        ? <Link className='nav-btn' to='/signup'>Sign up</Link>
+                        : <div className='nav-btn' onClick={() => handleSignOut()}>Log out</div>
+                }
+                <div className='nav-btn'>{auth.currentUser?.email}</div>
+
+            </div>
         </div>
     )
 }

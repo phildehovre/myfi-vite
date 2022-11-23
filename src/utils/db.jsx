@@ -167,8 +167,8 @@ const fetchTimeSeries = (t, interval = '1h', outputSize = 5000) => {
 }
 
 
-export const useTimeSeries = (t, onSuccess, onError) => {
-    return useQuery(['time-series', { t }], () => fetchTimeSeries(t), {
+export const useTimeSeries = (t, interval, onSuccess, onError) => {
+    return useQuery(['time-series', { t, interval }], () => fetchTimeSeries(t, interval), {
         onSuccess,
         onError,
         enabled: !!t

@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import Chart from './Chart'
 import { useTimeSeries } from '../utils/db'
+import './Chart.scss'
 
 function ChartWrapper({ selectedTicker }) {
 
     const [sampleSize, setSampleSize] = useState(20)
     const [sample, setSample] = useState(null)
     const [chartData, setChartData] = useState(null)
+    const [interval, setInterval] = useState('1day')
 
     useEffect(() => {
         setSample(data?.data.values.slice(0, sampleSize).reverse())
     }, [sampleSize])
 
+    const handleTimeFrameChange = (interval, sampleSize) => {
+        setInterval(interval);
+        setSampleSize(sampleSize)
+    }
+
     const onSuccess = (data) => {
         setSample(data.data.values.slice(0, sampleSize).reverse())
     }
+    const onError = (error) => {
+        alert(error.message)
+    }
+
 
     useEffect(() => {
         if (sample && sample !== null) {
@@ -34,10 +45,7 @@ function ChartWrapper({ selectedTicker }) {
     }, [sample])
 
 
-    const onError = (err) => {
-        console.log(err)
-    }
-    const { isLoading, data, errors } = useTimeSeries(selectedTicker, onSuccess, onError)
+    const { isLoading, data, errors } = useTimeSeries(selectedTicker, interval, onSuccess, onError)
 
     const handleSampleSizeChange = (val) => {
         if (val > 0 && sampleSize <= 5000) {
@@ -65,10 +73,18 @@ function ChartWrapper({ selectedTicker }) {
         )
     }
 
-
     return (
-        <div>
+        <div className='chart_wrapper'>
             {renderChart()}
+            <div>
+                <button onClick={() => handleTimeFrameChange('1min', 177)}>1d</button>
+                <button onClick={() => handleTimeFrameChange('30min', 100)}>1w</button>
+                <button onClick={() => handleTimeFrameChange('2h', 87)}>1m</button>
+                <button onClick={() => handleTimeFrameChange('1day', 130)}>6m</button>
+                <button onClick={() => handleTimeFrameChange('1day', 255)}>1y</button>
+                <button onClick={() => handleTimeFrameChange('1week', 260)}>3y</button>
+
+            </div>
 
         </div>
     )

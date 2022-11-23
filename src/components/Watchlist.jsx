@@ -2,6 +2,7 @@ import React from 'react'
 import { auth } from '../config/firebase'
 import { useWatchlistByOwner } from '../utils/db'
 import TickerItem from './TickerItem'
+import './Watchlist.scss'
 
 function Watchlist({ handleTickerItemClick }) {
 
@@ -27,6 +28,7 @@ function Watchlist({ handleTickerItemClick }) {
                         ticker={ticker}
                         key={i}
                         handleTickerItemClick={handleTickerItemClick}
+                        id={i}
                     />
                 )
             })

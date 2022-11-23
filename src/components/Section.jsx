@@ -3,10 +3,10 @@ import './Section.scss'
 
 function Section(props) {
 
-    const { children, height } = props
+    const { children, height, display } = props
 
     const styles = {
-        height
+        height, display
     }
     return (
         <div className='section' style={styles}>{children}</div>

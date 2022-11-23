@@ -1,5 +1,18 @@
-.chart-ctn {
-    height: 100%;
-    width: 100%;
+.chart_wrapper {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    // width: clamp(60vw, 65vw, 80vw);
+    width: 100%;
+    // border: 1px solid red;
+}
+
+.chart-ctn {
+    align-items: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    // border: 1px solid red;
 }
