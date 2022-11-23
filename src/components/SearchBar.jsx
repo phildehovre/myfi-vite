@@ -16,12 +16,12 @@ import { useTimeSeries } from '../utils/db'
 
 function SearchBar({ height, handleTickerChange }) {
 
-    const { handleSubmit, register, reset } = useForm()
+    const { handleSubmit, register, reset } = useForm();
 
-    const [term, setTerm] = useState('')
-    const [autoComplete, setAutoComplete] = useState([])
-    const [show, setShow] = useState(true)
-    const [type, setType] = useState('stocks')
+    const [term, setTerm] = useState('');
+    const [autoComplete, setAutoComplete] = useState([]);
+    const [show, setShow] = useState(true);
+    const [type, setType] = useState('stocks');
 
     useEffect(() => {
         if (term && term.length) {
@@ -29,7 +29,7 @@ function SearchBar({ height, handleTickerChange }) {
             }).then((res, err) => {
                 setAutoComplete(res.data.data)
             }).catch(err => alert(err))
-        }
+        };
     }, [term]);
 
 
@@ -38,30 +38,25 @@ function SearchBar({ height, handleTickerChange }) {
         // updateWatchlist(auth.currentUser.uid, term)
         reset()
         setTerm('')
-    }
+    };
 
 
 
     const handleOnSearchBarInput = (e) => {
         setShow(true)
         setTerm(e.target.value)
-    }
+    };
 
     const handleTypeChange = (type) => {
         setType(type)
         setTerm('')
-    }
+    };
 
 
 
     return (
         <>
             <Section height={height}>
-                {/* <div className='instrument_selction-ctn'>
-                    <button className={`instrument_selction-btn ${type === 'stocks' && 'active'}`} type='check' onClick={() => { handleTypeChange('stocks') }}>Stocks</button>
-                    <button className={`instrument_selction-btn ${type === 'etf' && 'active'}`} type='check' onClick={() => { handleTypeChange('etf') }}>ETF</button>
-                    <button className={`instrument_selction-btn ${type === 'indices' && 'active'}`} type='check' onClick={() => { handleTypeChange('indices') }}>Indices</button>
-                </div> */}
                 <form className='searchbar_form-ctn' onSubmit={handleSubmit(onSubmit)}>
                     <input
                         {...register('term')}
@@ -87,15 +82,6 @@ function SearchBar({ height, handleTickerChange }) {
             </Section>
         </>
     )
-}
+};
 
-export default SearchBar
-
-
-    // useEffect(() => {
-    //     const closeDropdown = (e) => {
-    //         setShow(false)
-    //     }
-    //     document.body.addEventListener('click', closeDropdown)
-    //     return () => document.body.removeEventListener('click', closeDropdown)
-    // })
+export default SearchBar;

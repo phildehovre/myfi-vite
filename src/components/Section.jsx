@@ -3,7 +3,7 @@ import './Section.scss'
 
 function Section(props) {
 
-    const { children, height, display } = props
+    const { children, height, display } = props;
 
     const styles = {
         height, display
@@ -11,6 +11,6 @@ function Section(props) {
     return (
         <div className='section' style={styles}>{children}</div>
     )
-}
+};
 
-export default Section
+export default Section;

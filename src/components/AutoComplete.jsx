@@ -9,23 +9,23 @@ import { uuidv4 } from '@firebase/util'
 
 function AutoComplete(props) {
 
-    const { term, setShow, show, autoComplete, handleTickerChange } = props
+    const { term, setShow, show, autoComplete, handleTickerChange } = props;
 
-    const [showButton, setShowButton] = useState(false)
-    const [isHovered, setIsHovered] = useState(null)
+    const [showButton, setShowButton] = useState(false);
+    const [isHovered, setIsHovered] = useState(null);
 
     const handleTickerClick = (t) => {
         handleTickerChange(t)
         setShow(false)
-    }
+    };
 
     const handleMouseEnter = (val) => {
         setIsHovered(val)
-    }
+    };
 
     const handleMouseLeave = (e) => {
         setShowButton('')
-    }
+    };
 
     const renderAutoComplete = () => {
         if (term && show && autoComplete && autoComplete.length > 0) {
@@ -57,14 +57,15 @@ function AutoComplete(props) {
                     </li>
                 )
             })
-        }
-    }
+        };
+    };
+
     return (
         <div className='autocomplete-list'
             onMouseEnter={() => { setShowButton(true) }}
             onMouseLeave={() => { setShowButton(false) }}
         >{renderAutoComplete()}</div>
     )
-}
+};
 
-export default AutoComplete
+export default AutoComplete;

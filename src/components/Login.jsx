@@ -19,26 +19,25 @@ const schema = yup.object().shape({
 
 function Login() {
 
-
-
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
     const [
         signInWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth)
-    const navigate = useNavigate()
+    ] = useSignInWithEmailAndPassword(auth);
+
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
         signInWithEmailAndPassword(data.email, data.password)
         navigate('/')
-    }
+    };
 
     const handleSignupWithGoogle = async () => {
         const res = await signInWithPopup(auth, provider)
         navigate('/')
-    }
+    };
 
     return (
         <Section height='100vh'>
@@ -69,6 +68,6 @@ function Login() {
             </div>
         </Section>
     )
-}
+};
 
-export default Login
+export default Login;

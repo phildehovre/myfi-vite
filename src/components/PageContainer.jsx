@@ -7,6 +7,6 @@ function PageContainer(props) {
     return (
         <div className='page-ctn'>{children}</div>
     )
-}
+};
 
-export default PageContainer
+export default PageContainer;

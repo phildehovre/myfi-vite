@@ -12,19 +12,19 @@ function ChartWrapper({ selectedTicker }) {
 
     useEffect(() => {
         setSample(data?.data.values.slice(0, sampleSize).reverse())
-    }, [sampleSize])
+    }, [sampleSize]);
 
     const handleTimeFrameChange = (interval, sampleSize) => {
         setInterval(interval);
         setSampleSize(sampleSize)
-    }
+    };
 
     const onSuccess = (data) => {
         setSample(data.data.values.slice(0, sampleSize).reverse())
-    }
+    };
     const onError = (error) => {
         alert(error.message)
-    }
+    };
 
 
     useEffect(() => {
@@ -39,39 +39,39 @@ function ChartWrapper({ selectedTicker }) {
                     backgroundColor: backgroundColor,
                     fill: true
                 }]
-            }
-            setChartData(data)
-        }
-    }, [sample])
+            };
+            setChartData(data);
+        };
+    }, [sample]);
 
 
-    const { isLoading, data, errors } = useTimeSeries(selectedTicker, interval, onSuccess, onError)
+    const { isLoading, data, errors } = useTimeSeries(selectedTicker, interval, onSuccess, onError);
 
     const handleSampleSizeChange = (val) => {
         if (val > 0 && sampleSize <= 5000) {
             setSampleSize(prev => prev + 5)
         } else if (val < 0 && sampleSize > 5) {
             setSampleSize(prev => prev - 5)
-        }
-    }
+        };
+    };
 
     const renderChart = () => {
         if (isLoading) {
             return (
                 <div>Loading...</div>
             )
-        }
+        };
 
         if (!isLoading && chartData && !errors) {
             return (
                 <Chart data={chartData} handleSampleSizeChange={handleSampleSizeChange} />
             )
-        }
+        };
 
         return (
             <div>{errors}</div>
         )
-    }
+    };
 
     return (
         <div className='chart_wrapper'>
@@ -88,6 +88,6 @@ function ChartWrapper({ selectedTicker }) {
 
         </div>
     )
-}
+};
 
-export default ChartWrapper
+export default ChartWrapper;

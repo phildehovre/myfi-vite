@@ -33,8 +33,8 @@ export const getUser = async (uid) => {
 
     if (!docSnap.exists()) {
         console.log("No such document!");
-    }
-}
+    };
+};
 
 export const useUser = (uid, onSuccess, onError) => {
     return useQuery(['users', { uid }], () => getUser(uid), {
@@ -42,32 +42,23 @@ export const useUser = (uid, onSuccess, onError) => {
         onError,
         enabled: !!uid
     })
-}
-
-// export const useTimeSeries = (t, onSuccess, onError) => {
-//     return useQuery(['time-series', { t }], () => fetchTimeSeries(t), {
-//         onSuccess,
-//         onError,
-//         enabled: !!t
-//     })
-// }
-
+};
 
 export const fetchWatchlist = async (uid) => {
     const res = await getDoc(doc(db, 'users', uid), {
     })
     return res.data()
-}
+};
 
 // Create a new user
 export function createUser(uid, data) {
     return setDoc(doc(db, "users", uid), data, { merge: true });
-}
+};
 
 // Update an existing user
 export function updateUser(uid, data) {
     return updateDoc(doc(db, "users", uid), data);
-}
+};
 
 
 /**** HELPERS ****/
@@ -104,7 +95,7 @@ function createQuery(getRef) {
                         reject(error);
                     } else {
                         client.invalidateQueries(queryKey);
-                    }
+                    };
                 }
             );
         });
@@ -117,7 +108,7 @@ function createQuery(getRef) {
 
         return data;
     };
-}
+};
 
 // Automatically remove Firestore subscriptions when all observing components have unmounted
 client.queryCache.subscribe(({ type, query }) => {
@@ -129,7 +120,7 @@ client.queryCache.subscribe(({ type, query }) => {
         // Call stored Firestore unsubscribe function
         unsubs[query.queryHash]();
         delete unsubs[query.queryHash];
-    }
+    };
 });
 
 // Format Firestore response
@@ -142,8 +133,8 @@ function format(response) {
     } else {
         // Handle a single doc
         return response.exists() ? formatDoc(response) : null;
-    }
-}
+    };
+};
 
 
 export function QueryClientProvider(props) {
@@ -163,8 +154,8 @@ const fetchTimeSeries = (t, interval = '1h', outputSize = 5000) => {
             interval: interval,
             outputsize: outputSize
         }
-    })
-}
+    });
+};
 
 
 export const useTimeSeries = (t, interval, onSuccess, onError) => {
@@ -172,21 +163,20 @@ export const useTimeSeries = (t, interval, onSuccess, onError) => {
         onSuccess,
         onError,
         enabled: !!t
-    })
-}
+    });
+};
 
 export const updateWatchlist = async (uid, ticker) => {
     const docRef = doc(db, "watchlists", uid)
     const docSnap = await getDoc(docRef)
-    if (!ticker) return
+    if (!ticker) return;
 
     if (docSnap.exists()) {
         updateDoc(docRef, { watchlist: arrayUnion({ ...ticker, 'owner': uid }) })
     } else {
         setDoc(docRef, { 'watchlist': ticker })
-    }
-
-}
+    };
+};
 
 export function useWatchlistByOwner(owner) {
     return useQuery(
@@ -200,16 +190,5 @@ export function useWatchlistByOwner(owner) {
             enabled: !!owner,
         }
     );
-}
-// export const updateWatchlist = async (uid, ticker) => {
-//     const docRef = doc(db, "users", uid)
-//     const docSnap = await getDoc(docRef)
-//     if (!ticker) return
-
-//     if (docSnap.exists()) {
-//         updateDoc(docRef, { watchlist: arrayUnion({ ticker }) })
-//     } else {
-//         setDoc(docRef, { 'watchlist': [ticker] })
-//     }
-// }
+};
 

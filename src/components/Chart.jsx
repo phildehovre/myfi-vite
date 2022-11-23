@@ -8,9 +8,9 @@ ChartJS.register(LineController, Filler, LineElement, PointElement, LinearScale,
 function Chart({ data, handleSampleSizeChange }) {
 
     const handleWheelOverChart = (e) => {
-        e.stopPropagation()
-        handleSampleSizeChange(e.deltaY)
-    }
+        e.stopPropagation();
+        handleSampleSizeChange(e.deltaY);
+    };
 
     return (
         <div className='chart-ctn'>
@@ -20,7 +20,7 @@ function Chart({ data, handleSampleSizeChange }) {
                 onWheel={e => { handleWheelOverChart(e) }}
             />
         </div>
-    )
-}
+    );
+};
 
 export default Chart
