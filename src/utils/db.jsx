@@ -11,6 +11,8 @@ import {
     addDoc,
     deleteDoc,
     serverTimestamp,
+    deleteField,
+    arrayRemove,
 } from 'firebase/firestore';
 import { auth } from '../Config/firebase'
 import {
@@ -59,6 +61,8 @@ export function createUser(uid, data) {
 export function updateUser(uid, data) {
     return updateDoc(doc(db, "users", uid), data);
 };
+
+
 
 
 /**** HELPERS ****/
@@ -192,3 +196,13 @@ export function useWatchlistByOwner(owner) {
     );
 };
 
+export const deleteItem = async (ticker, uid) => {
+    console.log()
+    const docRef = doc(db, "watchlists", uid)
+    const docSnap = await getDoc(docRef)
+    if (!ticker) return;
+
+    if (docSnap.exists()) {
+        updateDoc(docRef, { watchlist: arrayRemove(ticker) })
+    }
+}

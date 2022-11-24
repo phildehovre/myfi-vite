@@ -5,10 +5,10 @@ import './Chart.scss'
 
 function ChartWrapper({ selectedTicker }) {
 
-    const [sampleSize, setSampleSize] = useState(20)
+    const [sampleSize, setSampleSize] = useState(200)
     const [sample, setSample] = useState(null)
     const [chartData, setChartData] = useState(null)
-    const [interval, setInterval] = useState('1day')
+    const [interval, setInterval] = useState('5min')
 
     useEffect(() => {
         setSample(data?.data.values.slice(0, sampleSize).reverse())
@@ -76,15 +76,18 @@ function ChartWrapper({ selectedTicker }) {
     return (
         <div className='chart_wrapper'>
             {renderChart()}
-            <div>
-                <button onClick={() => handleTimeFrameChange('1min', 177)}>1d</button>
-                <button onClick={() => handleTimeFrameChange('30min', 100)}>1w</button>
-                <button onClick={() => handleTimeFrameChange('2h', 87)}>1m</button>
-                <button onClick={() => handleTimeFrameChange('1day', 130)}>6m</button>
-                <button onClick={() => handleTimeFrameChange('1day', 255)}>1y</button>
-                <button onClick={() => handleTimeFrameChange('1week', 260)}>3y</button>
+            {
+                selectedTicker &&
+                <div>
+                    <button onClick={() => handleTimeFrameChange('1min', 177)}>1d</button>
+                    <button onClick={() => handleTimeFrameChange('30min', 100)}>1w</button>
+                    <button onClick={() => handleTimeFrameChange('2h', 87)}>1m</button>
+                    <button onClick={() => handleTimeFrameChange('1day', 130)}>6m</button>
+                    <button onClick={() => handleTimeFrameChange('1day', 255)}>1y</button>
+                    <button onClick={() => handleTimeFrameChange('1week', 260)}>3y</button>
 
-            </div>
+                </div>
+            }
 
         </div>
     )

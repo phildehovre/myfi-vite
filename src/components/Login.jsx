@@ -11,6 +11,7 @@ import { signInWithPopup } from 'firebase/auth'
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import Spinner from './Spinner'
 
 const schema = yup.object().shape({
     email: yup.string().required('Your email is required'),
@@ -56,11 +57,12 @@ function Login() {
                         placeholder='Enter your password'
                         name='password'
                         type='password'></input>
-                    <button className='login-btn' type='submit'>{loading ? 'loading...' : 'Log in'}</button>
-                    <div className='login-btn' onClick={e => { handleSignupWithGoogle() }}>
-                        Log in with Google
+                    <button className='login-btn' type='submit'>{loading ?
+                        <Spinner /> : 'Log in'}</button>
+                    <button className='login-btn' onClick={e => { handleSignupWithGoogle() }}>
+                        Log in with
                         <FontAwesomeIcon icon={faGoogle} size='xl' />
-                    </div>
+                    </button>
                 </form>
                 <div>
                     <span>Not a member yet? </span><Link to='/signup'>Sign up</Link>

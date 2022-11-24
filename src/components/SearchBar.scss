@@ -8,9 +8,9 @@
 
 .searchbar {
     border: 2px solid rgb(216, 216, 216);
-    padding: .5em;
+    padding: .3em;
     border-radius: 30px;
-    min-width: 500px;
+    min-width: 300px;
     max-width: 750px;
     font-size: larger;
     background-color: white;
@@ -41,10 +41,8 @@
     height: fit-content;
     list-style: none;
     position: absolute;
-    // width: fit-content;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    top: 75px;
+    border-radius: 10px;
+    top: 50px;
     padding: 0;
     background-color: white;
 

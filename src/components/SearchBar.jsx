@@ -56,30 +56,28 @@ function SearchBar({ height, handleTickerChange }) {
 
     return (
         <>
-            <Section height={height}>
-                <form className='searchbar_form-ctn' onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        {...register('term')}
-                        name='searchTerm'
-                        autoComplete="off"
-                        className='searchbar'
-                        onChange={e => { handleOnSearchBarInput(e) }}
-                        placeholder='Try GE, TSLA, AMZN, ...'
-                        type='text'
-                        value={term}
-                    />
-                    <button className='searchbar-btn' type='submit'>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
-                    </button>
-                    <AutoComplete
-                        term={term}
-                        setShow={setShow}
-                        show={show}
-                        autoComplete={autoComplete}
-                        handleTickerChange={handleTickerChange}
-                    />
-                </form>
-            </Section>
+            <form className='searchbar_form-ctn' onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    {...register('term')}
+                    name='searchTerm'
+                    autoComplete="off"
+                    className='searchbar'
+                    onChange={e => { handleOnSearchBarInput(e) }}
+                    placeholder='Try GE, TSLA, AMZN, ...'
+                    type='text'
+                    value={term}
+                />
+                <button className='searchbar-btn' type='submit'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
+                </button>
+                <AutoComplete
+                    term={term}
+                    setShow={setShow}
+                    show={show}
+                    autoComplete={autoComplete}
+                    handleTickerChange={handleTickerChange}
+                />
+            </form>
         </>
     )
 };

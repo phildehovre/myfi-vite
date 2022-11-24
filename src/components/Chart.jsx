@@ -16,7 +16,8 @@ function Chart({ data, handleSampleSizeChange }) {
         <div className='chart-ctn'>
             <Line
                 data={data}
-                options={{ tension: .25, radius: 2 }}
+                options={{ tension: .25, radius: 2, }
+                }
                 onWheel={e => { handleWheelOverChart(e) }}
             />
         </div>

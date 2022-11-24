@@ -7,17 +7,3 @@ export default defineConfig({
     include: "**/*.jsx"
   })]
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-

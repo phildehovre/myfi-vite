@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import './Nav.scss'
 import { } from '../config/firebase'
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
+import SearchBar from './SearchBar'
 
 function Nav() {
 
@@ -31,7 +32,7 @@ function Nav() {
     return (
         <div className='navbar-ctn'>
             <Link className='nav-btn logo' to='/'>MyFi</Link>
-            <span></span>
+            <SearchBar />
             <div className='buttons-ctn'>
                 <Link className='nav-btn' to='/'>Home</Link>
                 <Link className='nav-btn' to='/discover'>Discover</Link>

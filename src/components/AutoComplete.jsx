@@ -6,17 +6,22 @@ import { updateWatchlist } from '../utils/db'
 import { auth } from '../Config/firebase'
 
 import { uuidv4 } from '@firebase/util'
+import { setDefaultEventParameters } from 'firebase/analytics'
 
 function AutoComplete(props) {
 
-    const { term, setShow, show, autoComplete, handleTickerChange } = props;
+    const { term, setShow, show, autoComplete, handleTickerChange, handleTickerItemClick } = props;
+
+    window.addEventListener('click', () => { setShow(false) })
 
     const [showButton, setShowButton] = useState(false);
     const [isHovered, setIsHovered] = useState(null);
 
     const handleTickerClick = (t) => {
         handleTickerChange(t)
+        handleTickerItemClick(t)
         setShow(false)
+        setTerm('')
     };
 
     const handleMouseEnter = (val) => {

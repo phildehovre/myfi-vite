@@ -14,8 +14,6 @@ function DiscoverPage() {
         setSelectedTicker(t)
     }
 
-    console.log(handleTickerChange)
-
     return (
         <Section>
             <SearchBar handleTickerChange={handleTickerChange} />
