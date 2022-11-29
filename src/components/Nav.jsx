@@ -4,12 +4,15 @@ import './Nav.scss'
 import { } from '../config/firebase'
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
 import SearchBar from './SearchBar'
+import HamburgerMenu from './HamburgerMenu'
+import { useLocation } from 'react-router-dom'
 
 function Nav() {
 
     const [user, setUser] = useState(false);
 
     const auth = getAuth();
+    const location = useLocation()
 
     const handleSignOut = async () => {
         const res = await signOut(auth)
@@ -32,7 +35,7 @@ function Nav() {
     return (
         <div className='navbar-ctn'>
             <Link className='nav-btn logo' to='/'>MyFi</Link>
-            <SearchBar />
+            < SearchBar />
             <div className='buttons-ctn'>
                 <Link className='nav-btn' to='/'>Home</Link>
                 <Link className='nav-btn' to='/discover'>Discover</Link>
@@ -45,8 +48,7 @@ function Nav() {
                         ? <Link className='nav-btn' to='/signup'>Sign up</Link>
                         : <div className='nav-btn' onClick={() => handleSignOut()}>Log out</div>
                 }
-                <div className='nav-btn'>{auth.currentUser?.email}</div>
-
+                <HamburgerMenu user={auth.currentUser} />
             </div>
         </div>
     )

@@ -1,0 +1,19 @@
+.quote-ctn {
+    min-width: 250px;
+    max-width: 300px;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    p {
+        margin: 0;
+    }
+}

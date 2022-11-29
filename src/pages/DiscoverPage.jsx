@@ -7,8 +7,8 @@ import ChartWrapper from '../components/ChartWrapper'
 
 function DiscoverPage() {
 
-    const [selectedTicker, setSelectedTicker] = useState()
 
+    const [selectedTicker, setSelectedTicker] = useState()
 
     const handleTickerChange = (t) => {
         setSelectedTicker(t)

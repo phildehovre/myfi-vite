@@ -31,7 +31,8 @@ function ChartWrapper({ selectedTicker }) {
         if (sample && sample !== null) {
             const backgroundColor = sample[0].close > sample[sample.length - 1].close ? 'rgba(255, 99, 132, 0.5)' : "rgba(75,192,192,0.2)"
             const labels = sample?.map((i) => { return i.datetime })
-            const data = {
+            let data
+            data = {
                 labels: labels,
                 datasets: [{
                     label: 'Adj. Close',
@@ -42,6 +43,14 @@ function ChartWrapper({ selectedTicker }) {
             };
             setChartData(data);
         };
+        if (isLoading) {
+            let data
+            data = {
+                labels: [],
+                datasets: []
+            }
+            setChartData(data)
+        }
     }, [sample]);
 
 

@@ -2,9 +2,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { auth } from '../config/firebase'
-// import { getAuth } from 'firebase/auth'
 import { useWatchlistByOwner } from '../utils/db'
 import SearchBar from './SearchBar'
+import Spinner from './Spinner'
 import TickerItem from './TickerItem'
 import './Watchlist.scss'
 
@@ -16,7 +16,7 @@ function Watchlist({ handleTickerItemClick, user }) {
     const renderWatchlist = () => {
         if (isLoading) {
             return (
-                <div>Loading...</div>
+                <Spinner />
             )
 
         }

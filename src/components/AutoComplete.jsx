@@ -4,13 +4,18 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { updateWatchlist } from '../utils/db'
 import { auth } from '../Config/firebase'
-
 import { uuidv4 } from '@firebase/util'
-import { setDefaultEventParameters } from 'firebase/analytics'
 
 function AutoComplete(props) {
 
-    const { term, setShow, show, autoComplete, handleTickerChange, handleTickerItemClick } = props;
+    const { term,
+        setTerm,
+        setShow,
+        show,
+        autoComplete,
+        handleTickerChange,
+        handleTickerItemClick
+    } = props;
 
     window.addEventListener('click', () => { setShow(false) })
 
@@ -21,7 +26,6 @@ function AutoComplete(props) {
         handleTickerChange(t)
         handleTickerItemClick(t)
         setShow(false)
-        setTerm('')
     };
 
     const handleMouseEnter = (val) => {

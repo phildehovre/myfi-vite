@@ -10,6 +10,9 @@ import { getAuth } from 'firebase/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import Spinner from '../components/Spinner'
+import TickerQuote from '../components/TickerQuote'
+import Carousel from '../components/Carousel'
+import NewsCarousel from '../components/NewsCarousel'
 
 function WatchlistPage() {
 
@@ -24,20 +27,25 @@ function WatchlistPage() {
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (!user) {
-    //         navigate('/login')
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (!user) {
+            navigate('/login')
+        }
+    }, []);
 
     return (
-        <PageContainer className='watchlist_page-ctn'>
-            {loading
-                ? <Spinner size='3x' />
-                : <Watchlist handleTickerItemClick={handleTickerItemClick} user={user} />
-            }
-            <ChartWrapper selectedTicker={selectedTicker} handleTickerItemClick={handleTickerItemClick} />
-        </PageContainer>
+        <>
+            <NewsCarousel />
+            <PageContainer className='watchlist_page-ctn'>
+                {loading
+                    ? <Spinner size='3x' />
+                    : <Watchlist handleTickerItemClick={handleTickerItemClick} user={user} />
+                }
+
+                <TickerQuote ticker={selectedTicker} />
+                <ChartWrapper selectedTicker={selectedTicker} handleTickerItemClick={handleTickerItemClick} />
+            </PageContainer>
+        </>
     )
 };
 

@@ -2,7 +2,7 @@
     padding: 1em;
     width: fit-content;
     min-width: 10em;
-    background-color: grey;
+    background-color: rgb(73, 73, 73);
     margin: .5em;
     border: none;
     border-radius: 10px;
@@ -15,7 +15,7 @@
 
     &:hover {
         background-color: transparent;
-        outline: 1px solid grey;
+        outline: 1px solid rgb(99, 99, 99);
         min-width: 15em;
         transition: 250ms ease-in all;
     }

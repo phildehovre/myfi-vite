@@ -22,6 +22,7 @@ import {
     QueryClientProvider as QueryClientProviderBase,
 } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { minutesToMilliseconds } from './formatters';
 
 const client = new QueryClient();
 
@@ -166,9 +167,35 @@ export const useTimeSeries = (t, interval, onSuccess, onError) => {
     return useQuery(['time-series', { t, interval }], () => fetchTimeSeries(t, interval), {
         onSuccess,
         onError,
-        enabled: !!t
+        enabled: !!t,
     });
 };
+
+const fetchQuote = (t, interval = '1day') => {
+    return axios.get(`https://api.twelvedata.com/quote?symbol=${t.symbol}&interval=${interval}&apikey=${import.meta.env.VITE_REACT_APP_TWELVEDATA_API_KEY}`)
+};
+
+export const useQuote = (t, interval, onSuccess, onError) => {
+    return useQuery(['quote', { t, interval }], () => fetchQuote(t, interval), {
+        onSuccess,
+        onError,
+        enabled: !!t
+    });
+}
+const fetchNews = (q, size) => {
+    // return axios.get(`https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_REACT_APP_NEWSDATA_API_KEY}&qInTitle=${q}`)
+    return axios.get(`https://newsapi.org/v2/everything?q=${q}&pageSize=${size}&apiKey=${import.meta.env.VITE_REACT_APP_NEWSAPI_API_KEY}`)
+};
+
+export const useNews = (q, size, onSuccess, onError) => {
+    return useQuery(['news', { q }], () => fetchNews(q, size), {
+        onSuccess,
+        onError,
+        // enabled: !!q,
+        refetchOnWindowFocus: false,
+        refetchInterval: minutesToMilliseconds(5)
+    });
+}
 
 export const updateWatchlist = async (uid, ticker) => {
     const docRef = doc(db, "watchlists", uid)
@@ -197,7 +224,6 @@ export function useWatchlistByOwner(owner) {
 };
 
 export const deleteItem = async (ticker, uid) => {
-    console.log()
     const docRef = doc(db, "watchlists", uid)
     const docSnap = await getDoc(docRef)
     if (!ticker) return;

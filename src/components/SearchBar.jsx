@@ -11,10 +11,8 @@ import axios from 'axios'
 import './SearchBar.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import Section from './Section'
-import { useTimeSeries } from '../utils/db'
 
-function SearchBar({ height, handleTickerChange }) {
+function SearchBar({ handleTickerChange }) {
 
     const { handleSubmit, register, reset } = useForm();
 
@@ -35,7 +33,6 @@ function SearchBar({ height, handleTickerChange }) {
 
     const onSubmit = (data) => {
         handleSubmit(data)
-        // updateWatchlist(auth.currentUser.uid, term)
         reset()
         setTerm('')
     };
@@ -68,7 +65,7 @@ function SearchBar({ height, handleTickerChange }) {
                     value={term}
                 />
                 <button className='searchbar-btn' type='submit'>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} size='4x' />
                 </button>
                 <AutoComplete
                     term={term}
@@ -76,6 +73,7 @@ function SearchBar({ height, handleTickerChange }) {
                     show={show}
                     autoComplete={autoComplete}
                     handleTickerChange={handleTickerChange}
+                    setTerm={setTerm}
                 />
             </form>
         </>
