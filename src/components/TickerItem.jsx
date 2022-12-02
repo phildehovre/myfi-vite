@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { deleteItem } from '../utils/db'
 import { getAuth } from 'firebase/auth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useQuote } from '../utils/db';
 
 import './TickerItem.scss'
 
@@ -21,6 +24,7 @@ function TickerItem(props) {
     const { ticker, handleTickerItemClick, id } = props
     const [isHovered, setIsHovered] = useState(false)
 
+    // const { isLoading, data, error } = useQuote(ticker)
 
     return (
         <div className='ticker_item-ctn'
@@ -34,7 +38,7 @@ function TickerItem(props) {
             {isHovered === id &&
                 <>
                     <span>{ticker.instrument_name}</span>
-                    <span onClick={() => { onDelete(ticker) }}>x</span>
+                    <FontAwesomeIcon onClick={() => { onDelete(ticker) }} icon={faTrash} />
                 </>
             }
         </div>

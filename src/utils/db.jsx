@@ -182,18 +182,18 @@ export const useQuote = (t, interval, onSuccess, onError) => {
         enabled: !!t
     });
 }
-const fetchNews = (q, size) => {
+const fetchNews = (q = 'markets', size) => {
     // return axios.get(`https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_REACT_APP_NEWSDATA_API_KEY}&qInTitle=${q}`)
-    return axios.get(`https://newsapi.org/v2/everything?q=${q}&pageSize=${size}&apiKey=${import.meta.env.VITE_REACT_APP_NEWSAPI_API_KEY}`)
+    return axios.get(`https://newsapi.org/v2/everything?q=${q}%20economy&pageSize=${size}&apiKey=${import.meta.env.VITE_REACT_APP_NEWSAPI_API_KEY}`)
 };
 
 export const useNews = (q, size, onSuccess, onError) => {
-    return useQuery(['news', { q }], () => fetchNews(q, size), {
+    return useQuery(['news', { q, size }], () => fetchNews(q, size), {
         onSuccess,
         onError,
-        // enabled: !!q,
         refetchOnWindowFocus: false,
-        refetchInterval: minutesToMilliseconds(5)
+        refetchOnMount: true,
+        refetch: false
     });
 }
 

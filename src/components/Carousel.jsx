@@ -3,49 +3,56 @@ import _ from 'lodash';
 import './Carousel.scss'
 import { useNews } from '../utils/db';
 import Section from './Section';
+import CarouselCell from './CarouselCell';
 
-function Carousel({ articlesArray, rotate }) {
+function Carousel({ articlesArray, rotate, isLoading }) {
 
     const [isRotating, setIsRotating] = useState(false)
     const [isSlicing, setIsSlicing] = useState(false)
     const [isAppearing, setIsAppearing] = useState(false)
 
     useEffect(() => {
-        setTimeout(() => {
-            setIsAppearing(!isAppearing)
-            setIsSlicing(!isSlicing)
-            setTimeout(() => {
-                rotate()
-            }, 1000)
-        }, 1000)
+        let init, rotation
+        if (!isLoading) {
+            init = setTimeout(() => {
+                setIsAppearing(!isAppearing)
+                setIsSlicing(!isSlicing)
+                rotation = setTimeout(() => {
+                    rotate()
+                }, 1750)
+            }, 1750)
+        }
+        if (isLoading) {
+            clearTimeout(init)
+            clearTimeout(rotation)
+        }
     })
-
-
-
-
 
     const renderCells = () => {
         return articlesArray.slice(1, articlesArray.length - 2).map((article, i) => {
             return (
-                <div className='cell' key={i}>{article.title}</div>
+                <CarouselCell article={article} className='cell' key={i} />
             )
         })
     }
 
     return (
-        <Section height='10em'>
-            <div className={`carousel-ctn ${isSlicing ? 'slicing' : ''} ${isRotating ? 'rotating' : ''}`}
+        <Section height='12em'>
+            <div
+                className={`carousel-ctn ${isSlicing ? 'slicing' : ''} ${isRotating ? 'rotating' : ''}`}
             >
-                <div
-                    className={`cell ${isSlicing ? 'slicing' : ''} ${isRotating ? 'rotating' : ''}`}
-                >{articlesArray[0].title}</div>
+                <CarouselCell
+                    article={articlesArray[0]}
+                    className={`cell ${isSlicing ? 'slicing' : ''} ${isRotating ? 'rotating' : ''}`} />
                 {renderCells()}
-                <div
-                    className={`cell`}
-                >{articlesArray[articlesArray.length - 2].title}</div>
-                <div
+                <CarouselCell
+                    article={articlesArray[articlesArray.length - 2]}
+                    className='cell'
+                />
+                <CarouselCell
                     className={`cell last ${isAppearing ? 'appearing' : ''}`}
-                >{articlesArray[articlesArray.length - 1].title}</div>
+                    article={articlesArray[articlesArray.length - 1]}
+                />
             </div>
         </Section>
     )

@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Section from '../components/Section'
-import Chart from '../components/Chart'
-import { useTimeSeries } from '../utils/db'
 import SearchBar from '../components/SearchBar'
 import ChartWrapper from '../components/ChartWrapper'
 
 function DiscoverPage() {
-
 
     const [selectedTicker, setSelectedTicker] = useState()
 

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { updateWatchlist } from '../utils/db'
 import { auth } from '../Config/firebase'
 import { uuidv4 } from '@firebase/util'
+import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
 function AutoComplete(props) {
 
@@ -14,7 +15,7 @@ function AutoComplete(props) {
         show,
         autoComplete,
         handleTickerChange,
-        handleTickerItemClick
+        handleTickerItemClick,
     } = props;
 
     window.addEventListener('click', () => { setShow(false) })
@@ -22,10 +23,11 @@ function AutoComplete(props) {
     const [showButton, setShowButton] = useState(false);
     const [isHovered, setIsHovered] = useState(null);
 
+    const { handleTickerSelection } = useContext(selectedTickerContext)
+
     const handleTickerClick = (t) => {
-        handleTickerChange(t)
-        handleTickerItemClick(t)
         setShow(false)
+        handleTickerSelection(t)
     };
 
     const handleMouseEnter = (val) => {

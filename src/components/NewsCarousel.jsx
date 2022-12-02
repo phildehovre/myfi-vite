@@ -7,9 +7,15 @@ import Spinner from './Spinner'
 function NewsCarousel() {
 
     const [articles, setArticles] = useState()
+    const [isUpdateWindow, setIsUpdateWindow] = useState(false)
+
 
     const onSuccess = (data) => {
+        setIsUpdateWindow(true)
         setArticles(data.data.articles)
+        setTimeout(() => {
+            setIsUpdateWindow(false)
+        }, 0)
     }
 
     const rotate = () => {
@@ -21,14 +27,20 @@ function NewsCarousel() {
         console.log(err)
     }
 
-    const { isLoading, data, error } = useNews('microsoft', 6, onSuccess, onError)
+    const { isLoading, data, error } = useNews('proof', 7, onSuccess, onError)
+
 
 
     return (
         <>
             {isLoading && <Spinner />}
             {articles &&
-                <Carousel articlesArray={articles} rotate={rotate} />
+                <Carousel
+                    articlesArray={articles}
+                    rotate={rotate}
+                    isUpdateWindow={isUpdateWindow}
+                    isLoading={isLoading}
+                />
             }
         </>
     )

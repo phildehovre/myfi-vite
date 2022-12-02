@@ -7,11 +7,8 @@ import Section from '../components/Section'
 import PageContainer from '../components/PageContainer'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getAuth } from 'firebase/auth'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import Spinner from '../components/Spinner'
 import TickerQuote from '../components/TickerQuote'
-import Carousel from '../components/Carousel'
 import NewsCarousel from '../components/NewsCarousel'
 
 function WatchlistPage() {
@@ -30,6 +27,8 @@ function WatchlistPage() {
     useEffect(() => {
         if (!user) {
             navigate('/login')
+        } else {
+            navigate('/watchlist')
         }
     }, []);
 

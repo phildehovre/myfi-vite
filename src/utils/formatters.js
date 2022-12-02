@@ -7,5 +7,6 @@ export const handleSampleSizeChange = (val) => {
 }
 
 export const minutesToMilliseconds = (time) => {
-    return time * 60 * 1000
+    const res = time * 60 * 1000
+    return res
 }
