@@ -27,7 +27,7 @@ function NewsCarousel() {
         console.log(err)
     }
 
-    const { isLoading, data, error } = useNews('', 8, onSuccess, onError)
+    const { isLoading, data, error } = useNews('proof', 7, onSuccess, onError)
 
 
 

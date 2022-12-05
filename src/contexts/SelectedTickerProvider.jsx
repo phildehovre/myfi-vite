@@ -19,11 +19,11 @@ function SelectedTickerProvider({ children }) {
 
     // Async data fetching
 
-    // const onSuccess = (data) => {
-    //     if (data.data.code === 429) {
-    //         setShowModal(true)
-    //     }
-    // }
+    const onSuccess = (data) => {
+        if (data.data.code === 429) {
+            setShowModal(true)
+        }
+    }
 
     const {
         data: tickerData,

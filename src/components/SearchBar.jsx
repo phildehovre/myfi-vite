@@ -11,10 +11,8 @@ import axios from 'axios'
 import './SearchBar.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
-function SearchBar() {
-
+function SearchBar({ handleTickerChange }) {
 
     const { handleSubmit, register, reset } = useForm();
 
@@ -74,6 +72,7 @@ function SearchBar() {
                     setShow={setShow}
                     show={show}
                     autoComplete={autoComplete}
+                    handleTickerChange={handleTickerChange}
                     setTerm={setTerm}
                 />
             </form>
