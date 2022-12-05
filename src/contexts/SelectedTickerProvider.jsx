@@ -2,8 +2,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { useTimeSeries, useWatchlistByOwner, useQuote } from '../utils/db'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useQueryClient } from 'react-query'
-import { FALSE } from 'sass'
 
 export const selectedTickerContext = new React.createContext()
 

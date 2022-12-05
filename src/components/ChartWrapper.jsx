@@ -1,22 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Chart from './Chart'
 import { useTimeSeries } from '../utils/db'
 import './Chart.scss'
+import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
 function ChartWrapper({ selectedTicker }) {
 
     const [sampleSize, setSampleSize] = useState(200)
     const [sample, setSample] = useState(null)
     const [chartData, setChartData] = useState(null)
-    const [interval, setInterval] = useState('5min')
+    const [displayedInterval, setDisplayedInterval] = useState()
+
+    const {
+        setInterval,
+        interval,
+        tickerData: data,
+        isTickerLoading: isLoading,
+        isTickerError: errors
+    } = useContext(selectedTickerContext)
+
 
     useEffect(() => {
         setSample(data?.data.values.slice(0, sampleSize).reverse())
     }, [sampleSize]);
 
-    const handleTimeFrameChange = (interval, sampleSize) => {
+    useEffect(() => {
+        if (!isLoading && data) {
+            setSample(data?.data.values.slice(0, sampleSize).reverse())
+        }
+    }, [data]);
+
+    const handleTimeFrameChange = (interval, sampleSize, intervalString) => {
         setInterval(interval);
-        setSampleSize(sampleSize)
+        setSampleSize(sampleSize);
+        setDisplayedInterval(intervalString)
+
     };
 
     const onSuccess = (data) => {
@@ -54,8 +72,6 @@ function ChartWrapper({ selectedTicker }) {
     }, [sample]);
 
 
-    const { isLoading, data, errors } = useTimeSeries(selectedTicker, interval, onSuccess, onError);
-
     const handleSampleSizeChange = (val) => {
         if (val > 0 && sampleSize <= 5000) {
             setSampleSize(prev => prev + 5)
@@ -84,17 +100,17 @@ function ChartWrapper({ selectedTicker }) {
 
     return (
         <div className='chart_wrapper'>
+            <h3 id='displayed-interval'>{displayedInterval}</h3>
             {renderChart()}
             {
                 selectedTicker &&
                 <div>
-                    <button onClick={() => handleTimeFrameChange('1min', 177)}>1d</button>
-                    <button onClick={() => handleTimeFrameChange('30min', 100)}>1w</button>
-                    <button onClick={() => handleTimeFrameChange('2h', 87)}>1m</button>
-                    <button onClick={() => handleTimeFrameChange('1day', 130)}>6m</button>
-                    <button onClick={() => handleTimeFrameChange('1day', 255)}>1y</button>
-                    <button onClick={() => handleTimeFrameChange('1week', 260)}>3y</button>
-
+                    <button onClick={() => handleTimeFrameChange('1min', 177, 'Daily')}>1d</button>
+                    <button onClick={() => handleTimeFrameChange('30min', 100, 'Weekly')}>1w</button>
+                    <button onClick={() => handleTimeFrameChange('2h', 87, 'Monthly')}>1m</button>
+                    <button onClick={() => handleTimeFrameChange('1day', 130, '6 months')}>6m</button>
+                    <button onClick={() => handleTimeFrameChange('1day', 255, 'One year')}>1y</button>
+                    <button onClick={() => handleTimeFrameChange('1week', 260, '3 years')}>3y</button>
                 </div>
             }
 
