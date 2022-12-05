@@ -168,6 +168,8 @@ export const useTimeSeries = (t, interval, onSuccess, onError) => {
         onSuccess,
         onError,
         enabled: !!t,
+        refetchOnWindowFocus: false,
+        refetch: false
     });
 };
 
@@ -179,7 +181,9 @@ export const useQuote = (t, interval, onSuccess, onError) => {
     return useQuery(['quote', { t, interval }], () => fetchQuote(t, interval), {
         onSuccess,
         onError,
-        enabled: !!t
+        enabled: !!t,
+        refetchOnWindowFocus: false,
+        refetch: false
     });
 }
 const fetchNews = (q = 'markets', size) => {
@@ -193,7 +197,6 @@ export const useNews = (q, size, onSuccess, onError) => {
         onError,
         refetchOnWindowFocus: false,
         refetchOnMount: true,
-        refetch: false
     });
 }
 

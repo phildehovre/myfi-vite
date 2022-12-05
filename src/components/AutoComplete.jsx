@@ -10,12 +10,9 @@ import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 function AutoComplete(props) {
 
     const { term,
-        setTerm,
         setShow,
         show,
         autoComplete,
-        handleTickerChange,
-        handleTickerItemClick,
     } = props;
 
     window.addEventListener('click', () => { setShow(false) })
@@ -29,6 +26,12 @@ function AutoComplete(props) {
         setShow(false)
         handleTickerSelection(t)
     };
+
+    const handleAddToWatchlist = (e, val) => {
+        e.stopPropagation()
+        updateWatchlist(auth.currentUser.uid, val)
+
+    }
 
     const handleMouseEnter = (val) => {
         setIsHovered(val)
@@ -61,7 +64,7 @@ function AutoComplete(props) {
                         </span>
                         <div
                             className={`watchlist_add-btn ${isHovered === i && showButton ? 'visible' : ''}`}
-                            onClick={() => { updateWatchlist(auth.currentUser.uid, val) }}
+                            onClick={(e) => { handleAddToWatchlist(e, val) }}
                         >
                             <FontAwesomeIcon icon={faPlus} size='lg' style={{ color: 'grey' }} />
                         </div>
