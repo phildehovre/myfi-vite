@@ -1,33 +1,31 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react'
+import { auth } from '../config/firebase'
+import { useWatchlistByOwner } from '../utils/db'
+import SearchBar from './SearchBar'
 import Spinner from './Spinner'
 import TickerItem from './TickerItem'
 import './Watchlist.scss'
-import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
 function Watchlist({ handleTickerItemClick, user }) {
 
-    const {
-        isWatchlistLoading,
-        watchlistData,
-        watchlistError,
-    } = useContext(selectedTickerContext)
+
+    const { isLoading, data, error } = useWatchlistByOwner(user.uid)
 
     const renderWatchlist = () => {
-        if (isWatchlistLoading) {
+        if (isLoading) {
             return (
                 <Spinner />
             )
 
         }
-        if (watchlistError) {
-            alert(watchlistError.message)
+        if (error) {
+            alert(error.message)
         }
 
-
-        if (watchlistData && !isWatchlistLoading) {
-            return watchlistData.watchlist.map((ticker, i) => {
+        if (data !== null && data.watchlist.length > 0) {
+            return data.watchlist.map((ticker, i) => {
                 return (
                     <TickerItem
                         ticker={ticker}
@@ -43,11 +41,8 @@ function Watchlist({ handleTickerItemClick, user }) {
 
     return (<>
         <div>
-            <div className='watchlist-ctn'>
-                {renderWatchlist()}
-            </div>
+            <div className='watchlist-ctn'>{renderWatchlist()}</div>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-            <span className='watchlist-header'>Today:</span>
         </div>
 
     </>

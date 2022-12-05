@@ -1,6 +1,6 @@
 .quote-ctn {
-    min-width: 300px;
-    max-width: 400px;
+    min-width: 250px;
+    max-width: 300px;
 
     span {
         display: flex;
@@ -15,17 +15,5 @@
 
     p {
         margin: 0;
-    }
-
-    .price_range-ctn {
-
-        input {
-            max-width: fit-content;
-        }
-
-        span {
-            display: flex;
-            justify-content: space-between;
-        }
     }
 }

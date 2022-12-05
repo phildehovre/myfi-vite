@@ -22,9 +22,11 @@ function Carousel({ articlesArray, rotate, isLoading }) {
                 }, 1750)
             }, 1750)
         }
-
+        if (isLoading) {
+            clearTimeout(init)
+            clearTimeout(rotation)
+        }
     })
-
 
     const renderCells = () => {
         return articlesArray.slice(1, articlesArray.length - 2).map((article, i) => {
