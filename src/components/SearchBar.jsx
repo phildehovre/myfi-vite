@@ -9,7 +9,7 @@ import axios from 'axios'
 import './SearchBar.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-// import { auth } from '../Config/firebase'
+// import { auth } from '../config/firebase'
 // import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
 function SearchBar() {
