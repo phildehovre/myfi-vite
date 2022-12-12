@@ -5,7 +5,10 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { auth } from '../config/firebase'
-import { useCreateUserWithEmailAndPassword, useAuthState } from 'react-firebase-hooks/auth'
+import {
+    useCreateUserWithEmailAndPassword,
+    // useAuthState
+} from 'react-firebase-hooks/auth'
 
 const schema = yup.object().shape({
     firstName: yup.string().required('Your first name is required'),

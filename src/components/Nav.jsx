@@ -5,14 +5,12 @@ import { } from '../config/firebase'
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
 import SearchBar from './SearchBar'
 import HamburgerMenu from './HamburgerMenu'
-import { useLocation } from 'react-router-dom'
 
 function Nav() {
 
     const [user, setUser] = useState(false);
 
     const auth = getAuth();
-    const location = useLocation()
 
     const handleSignOut = async () => {
         const res = await signOut(auth)

@@ -1,17 +1,18 @@
 import React, { useContext } from 'react'
-import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
+// import { useContext } from 'react'
+// import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 import './Modal.scss'
 
 function Modal({ children }) {
 
-    const { setShowModal, showModal } = useContext(selectedTickerContext)
+    // const { setShowModal, showModal } = useContext(selectedTickerContext)
 
-    document.addEventListener('click', (e) => {
-        e.stopPropagation()
-        if (e.target.classname !== 'modal-ctn') {
-            setShowModal(false)
-        }
-    })
+    // document.addEventListener('click', (e) => {
+    //     e.stopPropagation()
+    //     if (e.target.classname !== 'modal-ctn') {
+    //         setShowModal(false)
+    //     }
+    // })
 
     return (
         <div className='modal-background'>

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Spinner from './Spinner'
 import Watchlist from './watchlist'
-import { useWatchlistByOwner } from '../utils/db'
+// import { useWatchlistByOwner } from '../utils/db'
 import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
 function WatchlistWrapper({ user }) {

@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import './Carousel.scss'
-import { useNews } from '../utils/db';
 import Section from './Section';
 import CarouselCell from './CarouselCell';
 

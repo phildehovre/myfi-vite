@@ -153,6 +153,7 @@ export function QueryClientProvider(props) {
 
 
 const fetchTimeSeries = (t, interval = '1h', outputSize = 5000) => {
+    console.log('fetching time series')
     return axios.get(`https://api.twelvedata.com/time_series?symbol=${t.symbol}&apikey=${import.meta.env.VITE_REACT_APP_TWELVEDATA_API_KEY}`, {
         params: {
             symbol: t.symbol,
@@ -162,7 +163,6 @@ const fetchTimeSeries = (t, interval = '1h', outputSize = 5000) => {
     });
 };
 
-
 export const useTimeSeries = (t, interval, onSuccess, onError) => {
     return useQuery(['time-series', { t, interval }], () => fetchTimeSeries(t, interval), {
         onSuccess,
@@ -171,7 +171,29 @@ export const useTimeSeries = (t, interval, onSuccess, onError) => {
     });
 };
 
+const fetchBatch = (array, interval = '1day', outputSize = 5000) => {
+    console.log('fetching batch')
+    let symbolTemplateString = array.length > 1 ? array.join(',') : array
+    return axios.get(`https://api.twelvedata.com/time_series?symbol=${symbolTemplateString}&apikey=${import.meta.env.VITE_REACT_APP_TWELVEDATA_API_KEY}`, {
+        params: {
+            interval: interval,
+            outputsize: outputSize,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+        }
+    });
+};
+
+export const useBatchRequest = (t, interval, onSuccess, onError) => {
+    return useQuery(['batch', { t, interval }], () => fetchBatch(t, interval), {
+        onSuccess,
+        onError,
+        enabled: !!t,
+    });
+};
+
 const fetchQuote = (t, interval = '1day') => {
+    console.log('fetching quote')
     return axios.get(`https://api.twelvedata.com/quote?symbol=${t.symbol}&interval=${interval}&apikey=${import.meta.env.VITE_REACT_APP_TWELVEDATA_API_KEY}`)
 };
 

@@ -20,7 +20,7 @@ function App() {
         <SelectedTickerProvider>
           <Router>
             <Nav />
-            <TickerCarousel />
+            {/* <TickerCarousel /> */}
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='/login' element={<LoginPage />} />

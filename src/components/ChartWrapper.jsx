@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Chart from './Chart'
-import { useTimeSeries } from '../utils/db'
+// import { useTimeSeries } from '../utils/db'
 import './Chart.scss'
 import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
@@ -10,38 +10,30 @@ function ChartWrapper({ selectedTicker }) {
     const [sample, setSample] = useState(null)
     const [chartData, setChartData] = useState(null)
     const [displayedInterval, setDisplayedInterval] = useState()
+    const [interval, setInterval] = useState()
 
     const {
-        setInterval,
-        interval,
-        tickerData: data,
+        batchData,
+        // tickerData: data,
         isTickerLoading: isLoading,
         isTickerError: errors
     } = useContext(selectedTickerContext)
 
 
     useEffect(() => {
-        setSample(data?.data.values.slice(0, sampleSize).reverse())
-    }, [sampleSize]);
+        let data = batchData?.data[selectedTicker?.symbol]
+        setSample(data?.values.slice(0, sampleSize).reverse())
+    }, []);
 
-    useEffect(() => {
-        if (!isLoading && data) {
-            setSample(data?.data.values.slice(0, sampleSize).reverse())
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     setSample(data?.data.values.slice(0, sampleSize).reverse())
+    // }, [data]);
 
     const handleTimeFrameChange = (interval, sampleSize, intervalString) => {
         setInterval(interval);
         setSampleSize(sampleSize);
         setDisplayedInterval(intervalString)
 
-    };
-
-    const onSuccess = (data) => {
-        setSample(data.data.values.slice(0, sampleSize).reverse())
-    };
-    const onError = (error) => {
-        alert(error.message)
     };
 
 

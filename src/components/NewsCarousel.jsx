@@ -1,5 +1,5 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import { useNews } from '../utils/db'
 import Carousel from './Carousel'
 import Spinner from './Spinner'

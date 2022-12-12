@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Section from '../components/Section'
 import SearchBar from '../components/SearchBar'
 import ChartWrapper from '../components/ChartWrapper'

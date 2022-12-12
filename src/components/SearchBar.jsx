@@ -1,17 +1,16 @@
 import React, {
     useState,
     useEffect,
-    useContext,
     // useRef 
 } from 'react'
 import AutoComplete from './AutoComplete'
 import { useForm } from 'react-hook-form'
-import { auth } from '../Config/firebase'
 import axios from 'axios'
 import './SearchBar.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
+// import { auth } from '../Config/firebase'
+// import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
 function SearchBar() {
 

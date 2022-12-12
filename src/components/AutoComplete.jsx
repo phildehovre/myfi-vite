@@ -1,4 +1,3 @@
-// import { InstrumentContext } from '../Contexts/InstrumentContext'
 import React, { useContext, useState } from 'react'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,6 +5,7 @@ import { updateWatchlist } from '../utils/db'
 import { auth } from '../Config/firebase'
 import { uuidv4 } from '@firebase/util'
 import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
+import { useEffect } from 'react'
 
 function AutoComplete(props) {
 
@@ -15,7 +15,9 @@ function AutoComplete(props) {
         autoComplete,
     } = props;
 
-    window.addEventListener('click', () => { setShow(false) })
+    useEffect(() => {
+        window.addEventListener('click', () => { setShow(false) })
+    })
 
     const [showButton, setShowButton] = useState(false);
     const [isHovered, setIsHovered] = useState(null);

@@ -1,6 +1,11 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { useTimeSeries, useWatchlistByOwner, useQuote } from '../utils/db'
+import {
+    // useTimeSeries,
+    useWatchlistByOwner,
+    //   useQuote,
+    useBatchRequest
+} from '../utils/db'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 export const selectedTickerContext = new React.createContext()
@@ -9,7 +14,9 @@ function SelectedTickerProvider({ children }) {
 
     const [selectedTicker, setSelectedTicker] = useState()
     const [interval, setInterval] = useState('5min')
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(true)
+    const [tickerArray, setTickerArray] = useState([])
+    const [tickerData, setTickerData] = useState()
 
 
     const auth = getAuth()
@@ -23,28 +30,44 @@ function SelectedTickerProvider({ children }) {
         }
     }
 
+    console.log('context rerender')
+
+    const onWatchlistSuccess = (data) => {
+    }
+    const onWatchlistError = (data) => {
+        // console.log(data)
+    }
+
     const {
-        data: tickerData,
-        isLoading: isTickerLoading,
-        error: tickerError
-    } = useTimeSeries(selectedTicker, interval, onSuccess)
+        data: batchData,
+        isLoading: isBatchLoading,
+        error: batchError
+    } = useBatchRequest(tickerArray, interval, onSuccess)
 
     const {
         data: watchlistData,
         isLoading: isWatchlistLoading,
         error: watchlistError
-    } = useWatchlistByOwner(user?.uid, onSuccess)
-
-    const {
-        data: quoteData,
-        isLoading: isQuoteLoading,
-        error: quoteError
-    } = useQuote(selectedTicker, interval, onSuccess)
+    } = useWatchlistByOwner(user?.uid, onWatchlistSuccess, onWatchlistError)
 
 
-    // Display tick on top of watchlist on mount
     useEffect(() => {
+        if (watchlistData?.watchlist.length > 0) {
+            watchlistData.watchlist.forEach((val) => {
+                setTickerArray(prev => { return [...prev, val.symbol] })
+            })
+        }
+    }, [watchlistData])
 
+    useEffect(() => {
+        if (tickerArray?.length > 0) {
+            setTickerData(batchData?.data[selectedTicker])
+        }
+    }, [tickerArray])
+
+
+    // Display top of stack ticker on mount
+    useEffect(() => {
         if (!isWatchlistLoading && user && !selectedTicker) {
             setSelectedTicker(watchlistData?.watchlist[0])
         }
@@ -64,10 +87,9 @@ function SelectedTickerProvider({ children }) {
         handleTickerSelection,
         selectedTicker,
         tickerData,
-        isTickerLoading,
-        isQuoteLoading,
-        quoteData,
-        quoteError,
+        isBatchLoading,
+        batchData,
+        batchError,
         showModal, setShowModal
     }
 

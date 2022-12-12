@@ -1,6 +1,16 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import React, { useContext, useEffect, useState } from 'react'
-import { useQuote, useWatchlistByOwner } from '../utils/db'
+// import { 
+//     getAuth, 
+//     onAuthStateChanged 
+// } from 'firebase/auth'
+import React, {
+    useContext,
+    //  useEffect, 
+    //  useState 
+} from 'react'
+import {
+    useQuote,
+    // useWatchlistByOwner 
+} from '../utils/db'
 import Spinner from './Spinner'
 import './TickerQuote.scss'
 import './InputRange.scss'
@@ -12,10 +22,11 @@ function TickerQuote() {
     const navigate = useNavigate()
 
     const onSuccess = (data) => {
-        if (data.code === 429) {
-            alert(data.message)
+        if (data.data.code === 429) {
+            alert(data.data.message)
             navigate('/')
         }
+        console.log(data)
     }
 
     const onError = (err) => {
@@ -25,18 +36,12 @@ function TickerQuote() {
     const {
         selectedTicker,
         interval,
-        isQuoteLoading,
-        quoteData,
-        quoteError
     } = useContext(selectedTickerContext)
-    // const { isQuoteLoading, data, quoteError } = useQuote(selectedTicker, interval, onSuccess, onError)
 
-
-    // const quoteData = data?.data
-
+    const { isQuoteLoading, quoteData, quoteError } = useQuote(selectedTicker, interval, onSuccess, onError)
 
     const renderRange = () => {
-        if (!isQuoteLoading && !quoteError && quoteData && quoteData.data.code !== 429) {
+        if (!isQuoteLoading && !quoteError && quoteData.data !== undefined) {
             const { high, low } = quoteData.data.fifty_two_week
             return (
                 <div className='price_range-ctn'>
@@ -53,41 +58,39 @@ function TickerQuote() {
         }
     }
 
-
-
     return (
         <>
             {isQuoteLoading &&
                 <Spinner />
             }
 
-            {!isQuoteLoading && !quoteError && quoteData &&
-                <div className='quote-ctn'>
-                    <h1>{quoteData.data.symbol}</h1>
-                    <p>{quoteData.data.name}</p>
+            {!isQuoteLoading && !quoteError && quoteData?.data !== undefined &&
+                < div className='quote-ctn'>
+                    <h1>{quoteData?.data.symbol}</h1>
+                    <p>{quoteData?.data.name}</p>
                     <span>
                         <h4>Open:</h4>
-                        <p>{quoteData.data.open}</p>
+                        <p>{quoteData?.data.open}</p>
                     </span>
                     <span>
                         <h4>Close:</h4>
-                        <p>{quoteData.data.close}</p>
+                        <p>{quoteData?.data.close}</p>
                     </span>
                     <span>
                         <h4>Previous Close:</h4>
-                        <p style={{ display: 'flex' }}>{quoteData.data.previous_close}
-                            <span style={{ color: `${quoteData.data.percent_change >= 0 ? 'lightgreen' : 'salmon'}`, fontSize: '.8em' }}>
-                                {quoteData.data.percent_change}%
+                        <p style={{ display: 'flex' }}>{quoteData?.data.previous_close}
+                            <span style={{ color: `${quoteData?.data.percent_change >= 0 ? 'lightgreen' : 'salmon'}`, fontSize: '.8em' }}>
+                                {quoteData?.data.percent_change}%
                             </span>
                         </p>
                     </span>
                     <span>
                         <h4>Average volume:</h4>
-                        <p>{quoteData.data.average_volume}</p>
+                        <p>{quoteData?.data.average_volume}</p>
                     </span>
                     <span>
                         <h4>Average volume:</h4>
-                        <p>{quoteData.data.average_volume}</p>
+                        <p>{quoteData?.data.average_volume}</p>
                     </span>
                     {renderRange()}
                 </div>
