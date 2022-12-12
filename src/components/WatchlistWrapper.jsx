@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Spinner from './Spinner'
-import Watchlist from './watchlist'
+import Watchlist from './Watchlist'
 // import { useWatchlistByOwner } from '../utils/db'
 import { selectedTickerContext } from '../contexts/SelectedTickerProvider'
 
