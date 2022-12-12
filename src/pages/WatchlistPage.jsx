@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Watchlist from '../components/watchlist'
 // import { auth } from '../config/firebase'
 import { useNavigate } from 'react-router-dom'
 import ChartWrapper from '../components/ChartWrapper'
