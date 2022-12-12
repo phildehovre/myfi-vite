@@ -14,7 +14,7 @@ import {
     deleteField,
     arrayRemove,
 } from 'firebase/firestore';
-import { auth } from '../Config/firebase'
+import { auth } from '../config/firebase'
 import {
     useQuery,
     hashQueryKey,
