@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { db } from "../Config/firebase";
+import { db } from "../config/firebase";
 import {
     doc, setDoc, updateDoc, arrayUnion, getFirestore,
     onSnapshot,
